@@ -1,0 +1,10 @@
+package com.manage.services.instantmechanic.data.model
+
+
+data class ServiceRequest(
+    val customerName: String,
+    val phoneNumber: String,
+    val vehicleNumber: String,
+    val service: String,
+    val problemDescription: String
+)
