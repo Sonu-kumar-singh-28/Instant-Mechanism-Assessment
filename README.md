@@ -1,97 +1,55 @@
-🚗 Instant Mechanic
+# 🚗 Instant Mechanic
 
-A modern Android mini service-booking application built for the Instant Mechanic Android Development Internship Assignment.
+A modern Android mini service-booking application built for the **Instant Mechanic Android Development Internship Assignment**.
 
-The app allows users to discover nearby mechanics, view garage details, and submit a vehicle service request through a clean Jetpack Compose UI.
+The application allows users to discover nearby mechanics, view garage details, and submit a vehicle service request through a clean and modern Jetpack Compose interface.
 
-✨ Features
+---
 
-🔎 Search mechanics by garage name, location, or service
+## ✨ Features
 
-⭐ Display mechanic ratings
+- 🔎 Search mechanics by garage name, location, or service
+- ⭐ Display mechanic ratings
+- 📍 Show mechanic location and distance
+- 🟢 Open / 🔴 Closed status
+- 🛠️ Display available services
+- 🕒 Working hours
+- 📞 Mechanic contact information
+- 📋 Mechanic details screen
+- 🚘 Service request form
+- ✅ Service request confirmation
+- 🌐 REST API integration using Retrofit
+- 🔄 Loading state handling
+- ⚠️ Error handling with Retry option
+- 🧩 MVVM architecture
+- 💉 Hilt dependency injection
+- 🎨 Modern Jetpack Compose UI
 
-📍 Show location and distance
+---
 
-🟢 Open / 🔴 Closed status
+## 🛠️ Tech Stack
 
-🛠️ Display available services
+| Technology | Usage |
+|---|---|
+| Kotlin | Primary programming language |
+| Jetpack Compose | UI development |
+| Material 3 | UI components |
+| MVVM | Application architecture |
+| Retrofit | REST API communication |
+| Gson | JSON parsing |
+| Kotlin Coroutines | Asynchronous operations |
+| StateFlow | UI state management |
+| Hilt | Dependency Injection |
+| Navigation Compose | Screen navigation |
+| Git & GitHub | Version control |
 
-🕒 Working hours
+---
 
-📞 Mechanic contact number
+## 🏗️ Architecture
 
-📋 Mechanic details screen
+The application follows an **MVVM-oriented architecture** with separated data and presentation responsibilities.
 
-🚘 Service request form
-
-✅ Request submission confirmation
-
-🌐 REST API integration using Retrofit
-
-🔄 Loading state handling
-
-⚠️ API/network error handling with Retry
-
-🧩 MVVM architecture
-
-💉 Hilt dependency injection
-
-🎨 Jetpack Compose modern UI
-
-🛠️ Tech Stack
-
-Technology
-
-Usage
-
-Kotlin
-
-Primary programming language
-
-Jetpack Compose
-
-UI development
-
-Material 3
-
-UI components and styling
-
-MVVM
-
-Application architecture
-
-Retrofit
-
-REST API communication
-
-Gson
-
-JSON parsing
-
-Kotlin Coroutines
-
-Asynchronous operations
-
-StateFlow
-
-UI state management
-
-Hilt
-
-Dependency Injection
-
-Navigation Compose
-
-Screen navigation
-
-Git & GitHub
-
-Version control
-
-🏗️ Architecture
-
-The application follows an MVVM-oriented structure with separated data and presentation layers.
-
+```text
 com.manage.services.instantmechanic
 │
 ├── data
@@ -99,8 +57,10 @@ com.manage.services.instantmechanic
 │   ├── model
 │   │   ├── Mechanic.kt
 │   │   └── ServiceRequest.kt
+│   │
 │   ├── remote
 │   │   └── MechanicApi.kt
+│   │
 │   └── repository
 │       └── MechanicRepository.kt
 │
@@ -112,8 +72,10 @@ com.manage.services.instantmechanic
 │   │   ├── HomeScreen.kt
 │   │   ├── HomeUiState.kt
 │   │   └── HomeViewModel.kt
+│   │
 │   ├── details
 │   │   └── MechanicDetailsScreen.kt
+│   │
 │   └── request
 │       └── RequestServiceScreen.kt
 │
@@ -121,10 +83,12 @@ com.manage.services.instantmechanic
 │
 ├── InstantMechanicApplication.kt
 └── MainActivity.kt
+```
 
-Data Flow
+### Data Flow
 
-UI (Jetpack Compose)
+```text
+UI - Jetpack Compose
         ↓
    ViewModel
         ↓
@@ -132,185 +96,306 @@ UI (Jetpack Compose)
         ↓
    Retrofit API
         ↓
-   REST API / JSON
+   REST API
+        ↓
+      JSON
+```
 
-The ViewModel exposes UI state through StateFlow. The Repository handles data retrieval and converts failures into Result, allowing the UI to show loading, success, empty, and error states.
+The ViewModel manages UI state using `StateFlow`.
 
-🌐 API Integration
+The Repository is responsible for retrieving mechanic data from the API and handling failures using Kotlin's `Result` type.
 
-The application consumes mechanic data through a REST API using Retrofit.
+---
 
-Base URL:
+## 🌐 REST API Integration
 
+The application uses a mock REST API for mechanic data.
+
+### Base URL
+
+```text
 https://dummyjson.com/
+```
 
-Endpoint:
+### Endpoint
 
+```text
 GET /c/a860-6359-4537-bb91
+```
 
-The API returns mechanic data in JSON format. Gson is used by Retrofit to convert the JSON response into Kotlin Mechanic objects.
+### Retrofit API
 
-Note: The custom DummyJSON endpoint is used as the assignment's mock REST API and may expire according to the service's endpoint lifetime.
+```kotlin
+interface MechanicApi {
 
-📱 App Flow
+    @GET("c/a860-6359-4537-bb91")
+    suspend fun getMechanics(): List<Mechanic>
+}
+```
 
-Home
-  ↓
+The API returns mechanic information in JSON format.
+
+Retrofit with Gson Converter is used to parse the JSON response into Kotlin `Mechanic` objects.
+
+> **Note:** The custom DummyJSON endpoint is used as a mock REST API for this assignment and may expire according to the service's endpoint lifetime.
+
+---
+
+## 📱 Application Flow
+
+```text
+Home Screen
+     ↓
 Select Mechanic
-  ↓
+     ↓
 Mechanic Details
-  ↓
+     ↓
 Request Service
-  ↓
+     ↓
 Fill Service Form
-  ↓
-Submit
-  ↓
-Confirmation
+     ↓
+Submit Request
+     ↓
+Confirmation Screen
+```
 
-📸 Screenshots
+---
 
-Home Screen
+# 📸 Screenshots
 
+## 🏠 Home Screen
 
+![Instant Mechanic Home Screen](screenshots/home_screen.jpeg)
 
-The home screen displays nearby mechanics with rating, distance, location, available services, working hours, and open/closed status.
+The home screen displays nearby mechanics with:
 
-Project Structure
+- Garage name
+- Rating
+- Distance
+- Location
+- Available services
+- Working hours
+- Open / Closed status
+- Search functionality
 
+---
 
+## 🏗️ Project Structure
 
-The project is organized into data, navigation, presentation, and theme packages.
+![Instant Mechanic Project Structure](screenshots/project_structure.png)
 
-Error Handling
+The project follows a clean package structure separating:
 
+- Data
+- Remote API
+- Repository
+- Navigation
+- Presentation
+- UI Theme
 
+---
 
-The application displays a user-friendly error state with a Retry action when mechanic data cannot be loaded.
+## ⚠️ Error Handling
 
-⚙️ Setup & Run
+![Instant Mechanic Error Handling](screenshots/error_state.jpeg)
 
-1. Clone the repository
+When the API request fails, the application displays a user-friendly error state along with a **Retry** button.
 
+This demonstrates the required error-handling behavior for REST API integration.
+
+---
+
+# ⚙️ Setup & Run
+
+## 1. Clone the Repository
+
+```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
+```
 
-2. Open the project
+Replace `<YOUR_GITHUB_REPOSITORY_URL>` with your actual GitHub repository URL.
 
-Open the project in Android Studio.
+---
 
-3. Sync Gradle
+## 2. Open in Android Studio
 
-Allow Android Studio to complete Gradle synchronization and dependency downloads.
+Open the cloned project in **Android Studio**.
 
-4. Run the application
+Allow Android Studio to complete the Gradle synchronization.
 
-Connect an Android device or start an emulator, then click Run ▶.
+---
 
-Requirements
+## 3. Configure JDK
 
-Android Studio
+Use:
 
+```text
 JDK 17
+```
 
-Android SDK
+---
 
-Internet connection for REST API requests
+## 4. Connect Device / Emulator
 
-🔐 Permissions
+Connect an Android device or start an Android Emulator.
 
-The application requires internet access for REST API communication.
+---
 
+## 5. Run the Application
+
+Click:
+
+```text
+Run ▶
+```
+
+The application will start on the connected Android device or emulator.
+
+---
+
+# 🔐 Internet Permission
+
+The application requires Internet permission for REST API communication.
+
+Add the following permission inside `AndroidManifest.xml`:
+
+```xml
 <uses-permission android:name="android.permission.INTERNET" />
+```
 
-🧠 Assumptions
+---
 
-Mechanic information is provided by a mock REST API for the assignment.
+# 🧠 Assumptions
 
-Service request submission currently demonstrates the requested confirmation flow locally; no real booking/payment backend is required by the assignment.
+- Mechanic information is provided through a mock REST API.
+- Mechanic distance and availability are represented using mock data.
+- Service request submission currently demonstrates the requested confirmation flow locally.
+- No real payment or booking backend is required for this assignment.
+- The application focuses on the core mechanic discovery and service-request workflow.
 
-Distance and mechanic availability are represented by the provided mock data.
+---
 
-🚀 Additional Features
+# 🚀 Additional Features
 
-Search across mechanic name, location, and services
+In addition to the core requirements, the application includes:
 
-Clean and responsive Compose UI
+- 🔎 Search functionality
+- 🛠️ Service-based search
+- 📍 Location-based search
+- 🔄 Retry functionality for API failures
+- 💉 Hilt Dependency Injection
+- 🧩 MVVM architecture
+- 🎨 Modern Material 3 UI
+- 📱 Responsive Jetpack Compose interface
+- 🔄 State-based UI rendering
+- ⚠️ Loading, Error, Empty and Success states
 
-Retry action for API failures
+---
 
-Separation of Repository, ViewModel, and UI responsibilities
+# 📋 Assignment Requirement Coverage
 
-Dependency Injection with Hilt
+| Requirement | Status |
+|---|---|
+| Home Screen | ✅ Completed |
+| Mechanic List | ✅ Completed |
+| Garage Name | ✅ Completed |
+| Rating | ✅ Completed |
+| Distance | ✅ Completed |
+| Location | ✅ Completed |
+| Available Services | ✅ Completed |
+| Open / Closed Status | ✅ Completed |
+| Mechanic Details | ✅ Completed |
+| Working Hours | ✅ Completed |
+| Phone Number | ✅ Completed |
+| Request Service Form | ✅ Completed |
+| Customer Name | ✅ Completed |
+| Phone Number | ✅ Completed |
+| Vehicle Number | ✅ Completed |
+| Service Selection | ✅ Completed |
+| Problem Description | ✅ Completed |
+| Request Confirmation | ✅ Completed |
+| REST API Integration | ✅ Completed |
+| JSON Parsing | ✅ Completed |
+| Loading State | ✅ Completed |
+| Error Handling | ✅ Completed |
+| API Data Display | ✅ Completed |
+| Kotlin | ✅ Completed |
+| Jetpack Compose | ✅ Completed |
+| MVVM | ✅ Completed |
+| Search / Filter | ✅ Completed |
+| Dependency Injection | ✅ Completed |
+| Good UI/UX | ✅ Completed |
 
-State-based UI rendering for loading, error, empty, and success states
+---
 
-📋 Assignment Coverage
+# 📂 Project Structure
 
-Requirement
+```text
+Instant-Mechanic
+│
+├── app
+│   └── src
+│       └── main
+│           ├── java
+│           │   └── com.manage.services.instantmechanic
+│           │       │
+│           │       ├── data
+│           │       │   ├── local
+│           │       │   ├── model
+│           │       │   ├── remote
+│           │       │   └── repository
+│           │       │
+│           │       ├── navigation
+│           │       │
+│           │       ├── presentation
+│           │       │   ├── home
+│           │       │   ├── details
+│           │       │   └── request
+│           │       │
+│           │       ├── ui.theme
+│           │       │
+│           │       ├── InstantMechanicApplication.kt
+│           │       └── MainActivity.kt
+│           │
+│           └── res
+│
+├── screenshots
+│   ├── home_screen.jpeg
+│   ├── project_structure.png
+│   └── error_state.jpeg
+│
+└── README.md
+```
 
-Status
+---
 
-Home Screen
+# 👨‍💻 Developer
 
-✅
+**Sonu Kumar Singh**
 
-Mechanic Details
+**Native Android Developer | Kotlin | Jetpack Compose | KMP**
 
-✅
+Bhopal, India
 
-Request Service Form
+---
 
-✅
+## ⭐ Internship Assignment
 
-REST API Integration
+This project was developed as part of an **Android Development Internship Assignment**.
 
-✅
+The main objective was to demonstrate:
 
-JSON Parsing
+- Android development skills
+- Kotlin programming
+- Jetpack Compose
+- REST API integration
+- JSON parsing
+- MVVM architecture
+- Dependency Injection
+- Error handling
+- Clean UI/UX
+- Git/GitHub workflow
 
-✅
+---
 
-Loading State
-
-✅
-
-Error Handling
-
-✅
-
-API Data Display
-
-✅
-
-Kotlin
-
-✅
-
-Jetpack Compose
-
-✅
-
-MVVM
-
-✅
-
-Search / Filter
-
-✅
-
-Dependency Injection
-
-✅
-
-Good UI/UX
-
-✅
-
-👨‍💻 Developer
-
-Sonu Kumar Singh
-Native Android Developer | Kotlin | Jetpack Compose | KMP
-
-Built as part of an Android Development Internship Assignment.
-
-⭐ If you find this project useful, consider giving the repository a star.
+⭐ **If you find this project useful, consider giving the repository a star.**
